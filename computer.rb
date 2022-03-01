@@ -4,7 +4,7 @@ class Computer < Player
     super(name)
   end
 
-  def random_pattern(peg_set)
+  def make_random_pattern(peg_set)
     pattern = peg_set.shuffle.take(4)
   end
 

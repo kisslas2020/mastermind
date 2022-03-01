@@ -1,5 +1,3 @@
-require './player'
-
 class Human < Player
 
   def initialize(name)
