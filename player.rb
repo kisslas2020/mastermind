@@ -7,4 +7,8 @@ class Player
     @losses = 0
   end
 
+  def reveal_pattern
+    pattern
+  end
+
 end
