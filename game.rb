@@ -16,15 +16,15 @@ class Game
   def play(peg_set)
     
     codemaker.make_pattern(peg_set)
-    result = []
+    result = nil
 
     turns.times do |i|
       @turn = i + 1
-      #puts "inside times turn = #{turn}"
       print_game
-      guess = codebreaker.guess(peg_set, result)
+      guess = codebreaker.guess(result)
       board.decoding_board << guess
       result = codemaker.evaluate(guess, peg_set)
+      
       board.feedback_board << result
       break if result == Array.new(4, "B")
     end
@@ -35,7 +35,7 @@ class Game
   end
 
   def print_game
-    Game.clear
+    #Game.clear
     puts "MASTERMIND"
     board.print_board
   end
@@ -51,11 +51,12 @@ class Game
 end
 
 peg_set = %w(1 2 3 4 5 6)
-p1 = Human.new("Laci")
-p2 = Computer.new(peg_set)
+p2 = Human.new("Laci")
+p1 = Computer.new(peg_set)
 b = Board.new
 
 game = Game.new(p1, p2, b)
 
 game.play(peg_set)
+
 
