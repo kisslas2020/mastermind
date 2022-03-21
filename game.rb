@@ -14,18 +14,26 @@ class Game
   end
 
   def play(peg_set)
+    print_game
     
     codemaker.make_pattern(peg_set)
     result = nil
 
     turns.times do |i|
       @turn = i + 1
+      
+      print_game
+      puts "Press ENTER to continue"
+      gets
       print_game
       guess = codebreaker.guess(result)
+      
       board.decoding_board << guess
+      
       result = codemaker.evaluate(guess, peg_set)
       
       board.feedback_board << result
+      
       break if result == Array.new(4, "B")
     end
     
@@ -35,9 +43,15 @@ class Game
   end
 
   def print_game
-    #Game.clear
-    puts "MASTERMIND"
+    Game.clear
+    puts "MASTERMIND
+    is a game where you have to guess your opponent’s secret code
+    within a certain number of turns.
+    Each turn you get some feedback about how good your guess was
+    whether it was exactly correct or just the correct color but in the wrong space.".lines.map { |line| line.strip.center(100) }.join("\n")
+    puts
     board.print_board
+    puts
   end
 
   def announcement

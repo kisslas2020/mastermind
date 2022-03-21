@@ -12,6 +12,7 @@ class Board
   def print_board
     
     turns.times do |i|
+      print "\t"*4
       print " " if i < 9
       print "#{i + 1}\t"
       decoding_board[i].each { |n| print "#{n}\t"} if i < decoding_board.length
@@ -19,7 +20,7 @@ class Board
       feedback_board[i].each { |n| print "#{n} "} if i < feedback_board.length
       puts
     end
-    print "\t"
+    print "\t"*5
     pattern.each { |n| print "#{n}\t"}
     puts
   end

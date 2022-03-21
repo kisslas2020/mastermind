@@ -18,7 +18,6 @@ class Human < Player
   end
 
   def evaluate(guess, peg_set)
-    puts "human evaluate pattern #{pattern} guess #{guess} pegset #{peg_set}"
     evaluate_guess(pattern, guess, peg_set)
   end
 
