@@ -17,7 +17,7 @@ class Computer < Player
     "Done."
   end
 
-  def evaluate(guess)
+  def evaluate(guess, peg_set)
     evaluate_guess(pattern, guess, peg_set)
   end
 

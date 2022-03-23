@@ -117,7 +117,7 @@ class Game
       print_game
       guess = codebreaker.guess(peg_set, repeat, result)
       board.decoding_board << guess
-      result = codemaker.evaluate(guess)
+      result = codemaker.evaluate(guess, peg_set)
       board.feedback_board << result
       
       return i + 1 if result == Array.new(4, "B")
