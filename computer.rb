@@ -1,25 +1,19 @@
 require './player'
 require './mastermind'
 
-class Computer < Player
+class CopyOfComputer < Player
 
   attr_reader :code_set, :pattern, :last_guess, :peg_set, :possible_codes, :result_set, :previous_guesses, :possible_guesses
 
   include Mastermind
 
-  def initialize(peg_set)
-    super("Computer")
-    @peg_set = peg_set
-    @code_set = peg_set.repeated_permutation(4).to_a
-    @possible_codes = code_set.dup
-    @result_set = ["", "B", "W"].repeated_combination(4).to_a
-    result_set.each { |rs| rs.delete("")}
-    @last_guess = %w(1 1 2 2)
-    @previous_guesses = [@last_guess]
+  def initialize(name = "Computer")
+    super(name)
   end
 
-  def make_pattern
-    @pattern = peg_set.shuffle.take(4)
+  def make_pattern(peg_set, repeat)
+    @peg_set = peg_set
+    @pattern = repeat ? (peg_set * 4).shuffle.take(4) : peg_set.shuffle.take(4)
     "Done."
   end
 
@@ -27,11 +21,14 @@ class Computer < Player
     evaluate_guess(pattern, guess, peg_set)
   end
 
-  def guess(result)
-    return last_guess if result == nil
+  def guess(peg_set, repeat, result)
+    unless result
+      @peg_set = peg_set
+      setup_arguments(repeat)
+    end
+    return last_guess if repeat && result == nil
     puts "Thinking... Please wait."
-    
-    @possible_codes = eliminate_possibilities(possible_codes, last_guess, result)
+    @possible_codes = eliminate_possibilities(possible_codes, last_guess, result) if last_guess
     
     min_eliminations = {}
     code_set.each do |code|
@@ -47,6 +44,18 @@ class Computer < Player
     
     previous_guesses << last_guess
     last_guess
+  end
+
+  def setup_arguments(repeat)
+    @code_set = repeat ? peg_set.repeated_permutation(4).to_a : peg_set.permutation(4).to_a
+    @possible_codes = code_set.dup
+    @result_set = ["", "B", "W"].repeated_combination(4).to_a
+    result_set.each { |rs| rs.delete("")}
+    impossible = %w[B B B W]
+    result_set.delete(impossible)
+    @last_guess = %w(1 1 2 2) if repeat
+    @previous_guesses = []
+    previous_guesses << last_guess if repeat
   end
 
   def calculate_max_remaining(code)

@@ -2,11 +2,11 @@ class Board
 
   attr_accessor :pattern, :decoding_board, :feedback_board, :turns
 
-  def initialize
+  def initialize(turns)
     @decoding_board = Array.new
     @feedback_board = Array.new
     @pattern = %w(? ? ? ?)
-    @turns = 12
+    @turns = turns
   end
 
   def print_board
