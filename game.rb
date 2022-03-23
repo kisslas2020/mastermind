@@ -1,6 +1,5 @@
 require './human'
 require './computer'
-require './copy_of_computer'
 require './board'
 
 class Game
