@@ -1,7 +1,7 @@
 require './player'
 require './mastermind'
 
-class CopyOfComputer < Player
+class Computer < Player
 
   attr_reader :code_set, :pattern, :last_guess, :peg_set, :possible_codes, :result_set, :previous_guesses, :possible_guesses
 
